@@ -1,4 +1,4 @@
-# Based on gnzsh and senpai
+# Based on bira theme
 
 setopt prompt_subst
 
@@ -27,8 +27,11 @@ fi
 gcp_info() {
   if [ -f "$HOME/.config/gcloud/active_config" ]; then
     gcp_profile=$(cat $HOME/.config/gcloud/active_config)
+    gcp_accountpath="$HOME/.config/gcloud/configurations/config_"$gcp_profile
+    gcp_accountline=$(grep account $gcp_accountpath)
+    gcp_account=${gcp_accountline:10}
     gcp_project=$(awk '/project/{print $3}' $HOME/.config/gcloud/configurations/config_$gcp_profile)
-    echo "%F{34}ⓖ ${gcp_project}%f"
+    echo "%F{34}ⓖ ${gcp_project} (${gcp_account})%f"
   fi
 }
 
@@ -50,3 +53,4 @@ ZSH_THEME_RUBY_PROMPT_PREFIX="%F{red}‹"
 ZSH_THEME_RUBY_PROMPT_SUFFIX="›%f"
 
 }
+
